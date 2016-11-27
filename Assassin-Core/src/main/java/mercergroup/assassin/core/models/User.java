@@ -21,7 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long userId;
+    private Long userId;
 
     @Column private String name;
     private byte[] profilePicture;

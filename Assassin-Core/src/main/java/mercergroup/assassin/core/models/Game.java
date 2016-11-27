@@ -23,7 +23,7 @@ public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id") private long gameId;
+    @Column(name = "id") private Long gameId;
 
     @Column(name = "start_date") private long startDate;
     @Column(name = "end_date") private long endDate;

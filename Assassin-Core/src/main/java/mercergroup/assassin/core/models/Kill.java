@@ -12,7 +12,7 @@ public class Kill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long killId;
+    private Long killId;
 
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;

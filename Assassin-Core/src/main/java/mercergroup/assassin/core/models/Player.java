@@ -20,7 +20,7 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long playerId;
+    private Long playerId;
 
     @Column(name = "alive") private boolean isAlive;
     @Column(name = "code") private String killVerificationCode;
