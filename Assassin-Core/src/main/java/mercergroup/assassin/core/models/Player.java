@@ -1,31 +1,55 @@
 package mercergroup.assassin.core.models;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * An Object representing a user in game.
  */
+@Entity
+@Table(name = "players")
 public class Player {
 
-    private int playerId;
-    private int gameId;
-    private Player target;
-    private User user;
-    private boolean isAlive;
-    private String killVerificationCode;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long playerId;
 
-    public int getPlayerId() {
+    @Column(name = "alive") private boolean isAlive;
+    @Column(name = "code") private String killVerificationCode;
+
+    @JoinColumn(name = "target_id", referencedColumnName = "id")
+    private Player target;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id", referencedColumnName = "id")
+    private Game game;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    public long getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(long playerId) {
         this.playerId = playerId;
     }
 
-    public int getGameId() {
-        return gameId;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public Player getTarget() {

@@ -1,44 +1,73 @@
 package mercergroup.assassin.core.models;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
+
 
 /**
  * Object for the game state
  */
+@Entity
+@Table(name = "games")
 public class Game {
-    private int gameId;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private Collection<Player> players;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id") private long gameId;
+
+    @Column(name = "start_date") private long startDate;
+    @Column(name = "end_date") private long endDate;
+    private long staleTime;
+    @Column(name = "win_limit") private int winLimit;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id", referencedColumnName = "id")
     private Player admin;
-    private LocalTime staleTime;
-    private int winLimit;
+
+    @OneToMany(fetch= FetchType.EAGER, mappedBy="game", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private Collection<Player> players;
 
 
-    public int getGameId() {
+    public long getGameId() {
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public void setGameId(long gameId) {
         this.gameId = gameId;
     }
 
-    public LocalDateTime getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(long endDate) {
         this.endDate = endDate;
+    }
+
+    public long getStaleTime() {
+        return staleTime;
+    }
+
+    public void setStaleTime(long staleTime) {
+        this.staleTime = staleTime;
     }
 
     public Collection<Player> getPlayers() {
@@ -47,14 +76,6 @@ public class Game {
 
     public void setPlayers(Collection<Player> players) {
         this.players = players;
-    }
-
-    public LocalTime getStaleTime() {
-        return staleTime;
-    }
-
-    public void setStaleTime(LocalTime staleTime) {
-        this.staleTime = staleTime;
     }
 
     public int getWinLimit() {

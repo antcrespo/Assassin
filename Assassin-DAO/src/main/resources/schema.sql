@@ -1,13 +1,18 @@
 CREATE TABLE IF NOT EXISTS `games` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `start` DATETIME NOT NULL,
-    `end` DATETIME NOT NULL,
-    PRIMARY KEY (`id`)
+    `admin_id` INT NOT NULL,
+    `start_date` DATETIME NOT NULL,
+    `end_date` DATETIME NOT NULL,
+    `win_limit` INT NOT NULL,
+    `password` VARCHAR(45),
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`admin_id`) REFERENCES `players`(id)
 );
 
 CREATE TABLE IF NOT EXISTS `users` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(30) NOT NULL,
+    `admin` BOOLEAN NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -17,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `players` (
     `game_id` INT NOT NULL,
     `alive` BOOLEAN NOT NULL,
     `target_id` INT NOT NULL,
+    `code` VARCHAR(20) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
     FOREIGN KEY (`game_id`) REFERENCES `games`(`id`),
